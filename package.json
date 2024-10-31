@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "prettier": "^3.3.3"
+  },
+  "devDependencies": {
+    "elm": "^0.19.1-6"
+  }
+}
