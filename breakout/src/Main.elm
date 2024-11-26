@@ -1,8 +1,10 @@
 module Main exposing (..)
 
 import Browser
+import Browser.Events
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style)
+import Json.Decode as Decode
 
 
 
@@ -17,7 +19,7 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-    { paddle = { x = 150, width = 100, height = 30 }
+    { paddle = { x = 150, width = 100, height = 20 }
     , ball = { x = 200, y = 200, dx = 2, dy = 2, size = 10 }
     }
 
@@ -28,6 +30,34 @@ initialModel =
 
 type Msg
     = NoOp
+    | LeftPressed
+    | RightPressed
+
+
+
+-- Subscriptions
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Browser.Events.onKeyDown (Decode.map keyDecoder Decode.string)
+
+
+
+-- keyDecoder
+
+
+keyDecoder : String -> Msg
+keyDecoder key =
+    case key of
+        "a" ->
+            LeftPressed
+
+        "d" ->
+            RightPressed
+
+        _ ->
+            NoOp
 
 
 update : Msg -> Model -> Model
